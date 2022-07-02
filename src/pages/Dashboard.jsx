@@ -5,6 +5,7 @@ import Counter from '../Components/Dashboard/Counter/Counter';
 import LaunchingSoon from '../Components/Dashboard/LaunchingSoon/LaunchingSoon';
 import LaunchingProjects from '../Components/Dashboard/LaunchingProjects/LaunchingProjects';
 import Research from '../Components/Dashboard/Research/Research';
+import Footer from '../Components/Global/Footer';
 
 const Dashboard = () => {
   return (
@@ -15,6 +16,7 @@ const Dashboard = () => {
         <LaunchingSoon/>
         <LaunchingProjects/>
         <Research/>
+        <Footer/>
     </>
   )
 }
