@@ -21,7 +21,7 @@ const LaunchingSoon = () => {
     
                     <div className="col-lg-4 col-md-6" key={id}>
                         <div className="projects-item mt-4">
-                            <Link to='/' className='projects-images'>
+                            <Link to='/launchpad_single' className='projects-images'>
                                 <img src={image} alt="images" />
                             </Link>
                             <div className="projects-text">
@@ -35,7 +35,7 @@ const LaunchingSoon = () => {
                                 </ul> 
                             </div>
                             <div className="projects-btn">
-                                <Link to='/'>
+                                <Link to='/launchpad_single'>
                                     token sale
                                 </Link>
                             </div>

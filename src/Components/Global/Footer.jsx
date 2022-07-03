@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ScrollToTop from 'react-scroll-up-to-top';
 import socials from "../../assets/data/socials"; 
 import logo from "../../assets/img/SYSPAD.png"
 
@@ -24,7 +25,8 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
+        <ScrollToTop showUnder={200}></ScrollToTop>
     </div>
   )
 }

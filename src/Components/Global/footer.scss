@@ -22,3 +22,20 @@
     }
     
 }
+
+button.styles_scroll-to-top__2A70v {
+    background: #4B51A6;
+    border-radius: 100px;
+    width: 50px;
+    height: 50px;
+    box-shadow: none;
+    &::before{
+        content: "\f062";
+        font-family: "Font Awesome 6 free";
+        font-weight: 900;
+        font-size: 20px;
+    }
+    svg{
+        display: none;
+    }
+}
