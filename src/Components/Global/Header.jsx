@@ -40,17 +40,17 @@ const Header = () => {
                             <Link to='/dashboard'><RiDashboardFill/> Dashboard</Link>
                         </li>
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle show" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="true">
+                            <Link to="/stake" className="nav-link dropdown-toggle show" id="offcanvasNavbarDropdown" role="button" aria-expanded="true">
                             <AiOutlineDollarCircle/> Stake
-                            </a>
+                            </Link>
                             <ul className="dropdown-menu show" aria-labelledby="offcanvasNavbarDropdown">
-                                <li className='dropdown-list'><Link to='/dashboard'>Show Tiers</Link></li> 
-                                <li className='dropdown-list'><Link to='/dashboard'>Integration to stake</Link> </li> 
+                                <li className='dropdown-list'><Link to='/stake'>Show Tiers</Link></li> 
+                                <li className='dropdown-list'><Link to='/stake'>Integration to stake</Link> </li> 
                                 <li className='dropdown-list-sub'>
                                     <ul>
-                                        <li className='dropdown-list'><Link to='/dashboard'>Deposit</Link></li>
-                                        <li className='dropdown-list'><Link to='/dashboard'>Withdraw</Link></li>
-                                        <li className='dropdown-list'><Link to='/dashboard'>Rewards</Link></li> 
+                                        <li className='dropdown-list'><Link to='/stake'>Deposit</Link></li>
+                                        <li className='dropdown-list'><Link to='/stake'>Withdraw</Link></li>
+                                        <li className='dropdown-list'><Link to='/stake'>Rewards</Link></li> 
                                     </ul>
                                 </li> 
                             </ul>
@@ -60,7 +60,7 @@ const Header = () => {
                             <RiAccountCircleFill/> Accounts
                             </a>
                             <ul className="dropdown-menu show" aria-labelledby="offcanvasNavbarDropdown2">
-                                <li className='dropdown-list'><Link to='/dashboard'>KYC & Audit</Link></li>  
+                                <li className='dropdown-list'><Link to='/kyc'>KYC & Audit</Link></li>  
                                 
                             </ul>
                         </li>

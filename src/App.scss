@@ -119,6 +119,22 @@ table {
   padding: 150px 0;
 }
 
+.ml-100 {
+  margin-left: 100px;
+}
+
+.mr-100 {
+  margin-right: 100px;
+}
+
+.pl-100 {
+  padding-left: 100px;
+}
+
+.pr-100 {
+  padding-right: 100px;
+}
+
 h1,.h1{
   font-size: 80px;
   font-weight: 800;
@@ -143,4 +159,28 @@ h5,.h5{
 h6,.h6{
   font-weight: 500;
   font-size: 18px;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.text-muted-v2 {
+  color: #616cfe !important;
+}
+
+.clear {
+  clear: both !important;
 }
