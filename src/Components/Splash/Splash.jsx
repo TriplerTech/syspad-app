@@ -11,7 +11,7 @@ const Splash = () => {
         <div className="logo-content text-center">
           <img src={Logo} alt="logo" />
           <div className="enter-btn">
-            <Link to="/dashboard">Enter App</Link>
+            <Link to="/home">Enter App</Link>
           </div>
         </div>
         <ul className="enter-social">

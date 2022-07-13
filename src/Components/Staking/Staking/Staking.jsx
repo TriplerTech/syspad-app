@@ -2,7 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
-import { Link } from "react-router-dom";
 import { useTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';

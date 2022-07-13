@@ -12,7 +12,7 @@ const Footer = () => {
             <div className="row">
                 <div className="col-lg-12">
                     <div className="footer-content">
-                        <Link to="/dashboard">
+                        <Link to="/home">
                             <img src={logo} alt="logo" />
                         </Link>
                         <ul className="footer-social">

@@ -18,7 +18,7 @@ const Header = () => {
                 <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <AiOutlineMenu/>
                 </button>
-                <a className="navbar-brand">
+                <a className="navbar-brand" href="/home">
                     <img src={Logo} alt="Logo" />
                 </a>
             </div>
@@ -40,10 +40,11 @@ const Header = () => {
                             <Link to='/dashboard'><RiDashboardFill/> Dashboard</Link>
                         </li>
                         <li className="nav-item dropdown">
-                            <Link to="/stake" className="nav-link dropdown-toggle show" id="offcanvasNavbarDropdown" role="button" aria-expanded="true">
+                            {/* <Link to="/stake" className="nav-link dropdown-toggle show" id="offcanvasNavbarDropdown" role="button" aria-expanded="true"> */}
+                            <Link to="/stake" id="offcanvasNavbarDropdown" role="button">
                             <AiOutlineDollarCircle/> Stake
                             </Link>
-                            <ul className="dropdown-menu show" aria-labelledby="offcanvasNavbarDropdown">
+                            {/* <ul className="dropdown-menu show" aria-labelledby="offcanvasNavbarDropdown">
                                 <li className='dropdown-list'><Link to='/stake'>Show Tiers</Link></li> 
                                 <li className='dropdown-list'><Link to='/stake'>Integration to stake</Link> </li> 
                                 <li className='dropdown-list-sub'>
@@ -53,10 +54,10 @@ const Header = () => {
                                         <li className='dropdown-list'><Link to='/stake'>Rewards</Link></li> 
                                     </ul>
                                 </li> 
-                            </ul>
+                            </ul> */}
                         </li>
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle show" id="offcanvasNavbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="true">
+                            <a className="nav-link dropdown-toggle show" href="#" id="offcanvasNavbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="true">
                             <RiAccountCircleFill/> Accounts
                             </a>
                             <ul className="dropdown-menu show" aria-labelledby="offcanvasNavbarDropdown2">
