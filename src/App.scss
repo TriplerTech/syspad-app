@@ -31,7 +31,11 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   border: 0;
   outline: none;
   text-decoration: none;
-} 
+}
+
+body {
+  overflow: unset !important;
+}
 
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
   display: block; 
@@ -183,4 +187,8 @@ h6,.h6{
 
 .clear {
   clear: both !important;
+}
+
+.MuiMenuItem-root {
+  color: white !important;
 }

@@ -5,7 +5,7 @@ import Logo from '../../assets/img/logo-min.svg';
 import Logo2 from '../../assets/img/logo.png';
 
 import { IoMdClose,IoWalletOutline } from "react-icons/io";
-import { RiDashboardFill, RiAccountCircleFill } from "react-icons/ri";
+import { RiDashboardFill, RiAccountCircleFill, RiStoreFill } from "react-icons/ri";
 import { AiOutlineDollarCircle,AiOutlineMenu } from "react-icons/ai";
 import { BiWallet } from "react-icons/bi";
  
@@ -62,7 +62,14 @@ const Header = () => {
                             </a>
                             <ul className="dropdown-menu show" aria-labelledby="offcanvasNavbarDropdown2">
                                 <li className='dropdown-list'><Link to='/kyc'>KYC & Audit</Link></li>  
-                                
+                            </ul>
+                        </li>
+                        <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle show" href="#" id="offcanvasNavbarDropdown3" role="button" data-bs-toggle="dropdown" aria-expanded="true">
+                            <RiStoreFill/> Launchpad
+                            </a>
+                            <ul className="dropdown-menu show" aria-labelledby="offcanvasNavbarDropdown3">
+                                <li className='dropdown-list'><Link to='/create_launchpad'>Create Launchpad</Link></li>  
                             </ul>
                         </li>
                     </ul> 

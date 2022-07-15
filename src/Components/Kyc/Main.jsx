@@ -205,13 +205,6 @@ const KycMain = () => {
                     </SwipeableViews>
                 </div>
             </Box>
-            
-            <div className="row mt-50">
-                <div className="col-lg-7">
-                </div>
-                <div className="col-lg-5">
-                </div>
-            </div>
         </div>
     )
 }

@@ -5,7 +5,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Enter from './pages/Enter.jsx'; 
 import Home from './pages/Home.jsx'; 
 import Stake from './pages/Stake.jsx';
-import Launchpad_Single from './pages/Launchpad_Single';
+import LaunchpadSingle from './pages/Launchpad_Single';
+import CreateLaunchpad from './pages/CreateLaunchpad';
 import Kyc from './pages/Kyc';
 
 import './App.scss';
@@ -17,7 +18,8 @@ function App() {
         <Route path="/" element={<Enter />} />
         <Route path="home" element={<Home />} />
         <Route path="stake" element={<Stake />} />
-        <Route path="launchpad_single" element={<Launchpad_Single />} />
+        <Route path="launchpad_single" element={<LaunchpadSingle />} />
+        <Route path="create_launchpad" element={<CreateLaunchpad />} />
         <Route path="kyc" element={<Kyc />} />
       </Routes> 
     </BrowserRouter>
