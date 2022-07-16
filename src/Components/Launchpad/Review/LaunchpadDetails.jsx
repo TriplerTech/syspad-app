@@ -3,6 +3,7 @@ import { Typography, List, ListItem, ListItemText } from '@material-ui/core';
 import useStyles from './styles';
 
 const products = [
+  { name: 'Project Name', value: 'SYSPAD PrivateSale' },
   { name: 'Total token', value: '100,000,000' },
   { name: 'Factory Address', value: '0x569533592d84171fB6c86Ac484a8Dc732a79c814' },
   { name: 'Token name', value: 'SYSPAD' },

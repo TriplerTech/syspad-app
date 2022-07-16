@@ -4,18 +4,16 @@ import checkoutFormModel from './checkoutFormModel';
 const {
   formField: {
     tokenAddress,
-    sale_type,
+    network,
     rate,
-    softCap,
     hardCap,
-    minBuy,
     maxBuy,
-    refund_type,
     startDate,
     endDate,
     firstRelease,
     vestingPeriod,
     eachRelease,
+    projectName,
     logoUrl
   }
 } = checkoutFormModel;
@@ -24,29 +22,14 @@ const {
 export default [
   Yup.object().shape({
     [tokenAddress.name]: Yup.string().required(`${tokenAddress.requiredErrorMsg}`),
-    [sale_type.name]: Yup.string()
+    [network.name]: Yup.string()
       .nullable()
-      .required(`${sale_type.requiredErrorMsg}`),
+      .required(`${network.requiredErrorMsg}`),
   }),
   Yup.object().shape({
     [rate.name]: Yup.string().required(`${rate.requiredErrorMsg}`),
-    [softCap.name]: Yup.string()
-      .required(`${softCap.requiredErrorMsg}`)
-      .test('isHalf', softCap.invalidErrorMsg, (val, context) => {
-        if(context.parent.hardCap / 2 < val) return false;
-        return true;
-      }),
     [hardCap.name]: Yup.string().required(`${hardCap.requiredErrorMsg}`),
-    [minBuy.name]: Yup.string()
-      .required(`${minBuy.requiredErrorMsg}`)
-      .test('isSmaller', minBuy.invalidErrorMsg, (val, context) => {
-        if(context.parent.maxBuy*1 < val) return false;
-        return true;
-      }),
     [maxBuy.name]: Yup.string().required(`${maxBuy.requiredErrorMsg}`),
-    [refund_type.name]: Yup.string()
-      .nullable()
-      .required(`${refund_type.requiredErrorMsg}`),
     [startDate.name]: Yup.string()
       .nullable()
       .required(`${startDate.requiredErrorMsg}`)
@@ -80,6 +63,7 @@ export default [
       [eachRelease.name]: Yup.string().required(`${eachRelease.requiredErrorMsg}`),
   }),
   Yup.object().shape({
+    [projectName.name]: Yup.string().required(`${projectName.requiredErrorMsg}`),
     [logoUrl.name]: Yup.string().required(`${logoUrl.requiredErrorMsg}`)
   })
 ];

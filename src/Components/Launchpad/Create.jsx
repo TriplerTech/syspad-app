@@ -22,7 +22,7 @@ import useStyles from "./styles";
 
 import "./index.scss";
 
-const steps = ["Verify Token", "Launchpad Info", "Additional Info", "Finish"];
+const steps = ["Verify Token", "IDO Project Info", "Additional Info", "Finish"];
 const { formId, formField } = checkoutFormModel;
 
 function _renderStepContent(step) {

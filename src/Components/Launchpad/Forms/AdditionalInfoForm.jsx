@@ -4,7 +4,7 @@ import { InputField, TextAreaField } from '../FormFields';
 
 export default function AdditionalInfoForm(props) {
   const {
-    formField: { logoUrl, website, facebook, twitter, github, telegram, instagram, discord, reddit, additionalDescription }
+    formField: { projectName, logoUrl, website, facebook, twitter, github, telegram, instagram, discord, reddit, description }
   } = props;
 
   return (
@@ -13,6 +13,13 @@ export default function AdditionalInfoForm(props) {
         Payment method
       </Typography> */}
       <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <InputField
+            name={projectName.name}
+            label={projectName.label}
+            fullWidth
+          />
+        </Grid>
         <Grid item xs={12} md={6}>
           <InputField
             name={logoUrl.name}
@@ -77,7 +84,7 @@ export default function AdditionalInfoForm(props) {
           />
         </Grid>
         <Grid item xs={12}>
-          <TextAreaField name={additionalDescription.name} label={additionalDescription.label} fullWidth />
+          <TextAreaField name={description.name} label={description.label} fullWidth />
         </Grid>
       </Grid>
     </React.Fragment>

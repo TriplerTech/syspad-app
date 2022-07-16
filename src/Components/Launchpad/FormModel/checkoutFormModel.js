@@ -7,14 +7,10 @@ export default {
       label: "Token address*",
       requiredErrorMsg: "Token address is required",
     },
-    sale_type: {
-      name: 'sale_type',
-      label: 'Sale type*',
-      requiredErrorMsg: "Sale type is required",
-    },
-    description: {
-      name: "description",
-      label: "Token description",
+    network: {
+      name: 'network',
+      label: 'Network*',
+      requiredErrorMsg: "Network is required",
     },
     useAddressForPaymentDetails: {
       name: "useAddressForPaymentDetails",
@@ -25,32 +21,15 @@ export default {
       label: "Rate*",
       requiredErrorMsg: "Rate is required",
     },
-    softCap: {
-      name: "softCap",
-      label: "Softcap (SYS)*",
-      requiredErrorMsg: "Softcap is required",
-      invalidErrorMsg: "Softcap must be >= 50% of Hardcap!",
-    },
     hardCap: {
       name: "hardCap",
       label: "Hardcap (SYS)*",
       requiredErrorMsg: "Hardcap is required",
     },
-    minBuy: {
-      name: "minBuy",
-      label: "Minimum Buy (SYS)*",
-      requiredErrorMsg: "Minimum Buy is required",
-      invalidErrorMsg: "Minimum Buy must be smaller than Max Buy!",
-    },
     maxBuy: {
       name: "maxBuy",
       label: "Maximum Buy (SYS)*",
       requiredErrorMsg: "Maximum Buy is required",
-    },
-    refund_type: {
-      name: 'refund_type',
-      label: 'Refund type*',
-      requiredErrorMsg: "Refund type is required",
     },
     startDate: {
       name: "startDate",
@@ -82,6 +61,11 @@ export default {
       name: 'eachRelease',
       label: 'Private sale token release each cycle (percent)*',
       requiredErrorMsg: "Private sale token release each cycle cannot be blank",
+    },
+    projectName: {
+      name: 'projectName',
+      label: 'Project Name*',
+      requiredErrorMsg: "Project Name is required",
     },
     logoUrl: {
       name: 'logoUrl',
@@ -120,8 +104,8 @@ export default {
       name: 'reddit',
       label: 'Reddit'
     },
-    additionalDescription: {
-      name: 'additionalDescription',
+    description: {
+      name: 'description',
       label: 'Description'
     },
   },

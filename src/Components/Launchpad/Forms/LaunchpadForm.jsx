@@ -1,21 +1,10 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
-import { InputField, DatePickerField, SelectField, CheckboxField } from '../FormFields';
-
-const refund_types = [
-  {
-    value: '1',
-    label: 'Refund'
-  },
-  {
-    value: '2',
-    label: 'Burn'
-  }
-];
+import { InputField, DatePickerField, CheckboxField } from '../FormFields';
 
 export default function LaunchpadForm(props) {
   const {
-    formField: { rate, softCap, hardCap, minBuy, maxBuy, refund_type, startDate, endDate, useVestingRule, firstRelease, vestingPeriod, eachRelease }
+    formField: { rate, hardCap, maxBuy, startDate, endDate, useVestingRule, firstRelease, vestingPeriod, eachRelease }
   } = props;
 
   return (
@@ -33,13 +22,6 @@ export default function LaunchpadForm(props) {
         </Grid>
         <Grid item xs={12} md={6}>
           <InputField
-            name={softCap.name}
-            label={softCap.label}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <InputField
             name={hardCap.name}
             label={hardCap.label}
             fullWidth
@@ -47,23 +29,8 @@ export default function LaunchpadForm(props) {
         </Grid>
         <Grid item xs={12} md={6}>
           <InputField
-            name={minBuy.name}
-            label={minBuy.label}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <InputField
             name={maxBuy.name}
             label={maxBuy.label}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <SelectField
-            name={refund_type.name}
-            label={refund_type.label}
-            data={refund_types}
             fullWidth
           />
         </Grid>
