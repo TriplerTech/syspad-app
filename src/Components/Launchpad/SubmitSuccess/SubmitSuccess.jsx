@@ -1,16 +1,20 @@
 import React from 'react';
+import { useFormikContext } from 'formik';
 import { Typography } from '@material-ui/core';
+import { Link } from "react-router-dom";
+import "./index.scss";
 
 function SubmitSuccess() {
   return (
     <React.Fragment>
-      <Typography variant="h5" gutterBottom>
-        Thank you for your order.
-      </Typography>
-      <Typography variant="subtitle1">
-        Your order number is #2001539. We have emailed your order confirmation,
-        and will send you an update when your order has shipped.
-      </Typography>
+      <div className="submit-success-pane text-center text-white">
+        <Typography variant="h5">
+          IDO Project is successfully created!
+        </Typography>
+        <Typography variant="subtitle1">
+          You can check your project <Link to="/home">here</Link>.
+        </Typography>
+      </div>
     </React.Fragment>
   );
 }

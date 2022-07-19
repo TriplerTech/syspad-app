@@ -1,15 +1,99 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-import {Tab,Row,Col,Nav  } from 'react-bootstrap';
+import { Tab, Row, Col, Nav, ProgressBar, Button } from 'react-bootstrap';
 import admin4 from "../../assets/img/admin4.png";
 import img4 from "../../assets/img/projects4.png";
-
+import syspadImg from '../../assets/img/syspad-token.png';
 import "./LaunchpadSingle.scss";
 import Description from "./Description"; 
 import TokenSale from "./TokenSale";
 import Metrics from "./Metrics";
 import VestingSchedule from "./VestingSchedule";
-const LaunchpadSingle = () => {
+
+import { ethers } from 'ethers';
+import abi from '../../contracts/IDO_abi.json';
+import staking_abi from '../../contracts/Staking_abi.json';
+
+const LaunchpadSingle = (props) => {
+  const [buyAmnt, setAmount] = useState("0.00");
+  const [buyTokenBalance, setBuyToken] = useState(0);
+  const [contribution, setContribution] = useState(0);
+  const [current, setCurrentTime] = useState(0);
+  const [endTime, setEndTime] = useState(0);
+  const [stakeAmount, setStakeAmount] = useState(0);
+  const [weiRaised, setWeiRaised] = useState(0);
+  const staking_contract = "0x8083d959537249e83b9166fafb315688f4426874";
+  const stakingLimit = 50000;
+
+  const data = props.data;
+
+  const date = new Date(data.start * 1000);
+  const startTime = date.toUTCString();
+
+  let { ethereum } = window;
+  let wallet_account = localStorage.getItem("setFullAddress");
+  let contract = null;
+
+  useEffect(() => {
+    if(ethereum) {
+      async function contract_interact() {
+        let provider = new ethers.providers.Web3Provider(ethereum);
+        let signer = provider.getSigner();
+        contract = new ethers.Contract(data.contract, abi, signer);
+
+        const contribute = await contract.checkContribution(wallet_account);
+        setContribution(parseInt(contribute.toString() / (10**18)));
+
+        const currentBlockTime = await contract.getBlockTimestamp();
+        setCurrentTime(parseInt(currentBlockTime.toString()));
+
+        const endDate = await contract.endDate();
+        setEndTime(parseInt(endDate.toString()));
+
+        const _weiRaised = await contract.weiRaised();
+        setWeiRaised(_weiRaised.toString() / (10**18));
+      } 
+
+      contract_interact();
+    }
+  });
+
+  async function buyTokens() {
+    if(buyAmnt > 0) {
+        if(buyAmnt > data.maxBuy) {
+          alert('cannot buy more than:' + data.maxBuy + ' SYS.')    
+        } else {
+          let provider = new ethers.providers.Web3Provider(ethereum);
+          let signer = provider.getSigner();
+          const stakingContract = await new ethers.Contract(staking_contract, staking_abi, signer);
+
+          const stakeAmnt = await stakingContract.stakeAmount(wallet_account);
+          setStakeAmount(Math.ceil(stakeAmnt.toString() / (10**18)));
+
+          if(stakeAmount < stakingLimit) {
+            alert("You must stake at least " + stakingLimit + " to participate in IDO Project.");
+          } else {
+            const transaction = await contract.buyTokens(wallet_account, {value:ethers.utils.parseEther((buyAmnt).toString())})
+            await transaction.wait();
+
+            alert('Buy tokens!')
+          }
+        }
+    } else {
+        alert('You must input bigger than 0.')
+    }
+  }
+
+  const setBuyAmount = (value) => {
+    setAmount(value);
+    setBuyToken(value * data.rate);
+  }
+
+  const setMaxAmount = () => {
+    setAmount(data.maxBuy - contribution);
+    setBuyToken(buyAmnt * data.rate);
+  };
+
   return (
     <div className="LaunchpadSingle-area pt-5 pb-100">
       <div className="container">
@@ -17,10 +101,10 @@ const LaunchpadSingle = () => {
           <div className="col-lg-12">
             <ul className="sigle-pagination">
               <li>
-                <Link to="/">Projects</Link>
+                <Link to="/home">Projects</Link>
               </li>
               <li>
-                <span className="active">APENZZ</span>
+                <span className="active">{data.projectName}</span>
               </li>
             </ul>
           </div>
@@ -31,8 +115,8 @@ const LaunchpadSingle = () => {
               <div className="single-admin">
                 <img src={admin4} alt="images" />
                 <div className="text">
-                  <div className="h4 text-white">CryptoCitizen</div>
-                  <span>Become the Metaverse highest ranking citizen</span>
+                  <div className="h4 text-white">{data.projectName}</div>
+                  <span>{data.desc}</span>
                 </div>
               </div>
               <div className="single-img">
@@ -43,27 +127,63 @@ const LaunchpadSingle = () => {
           <div className="col-lg-4">
             <div className="single-report">
               <div className="single-report-item">
-                <span className="sold-btn">Sold out</span>
-                <div className="h3 text-white mt-3">$2,030,000</div>
-                <div className="single-hr"></div>
+                {(endTime > current) && (
+                  <span className="sold-btn">In Progress</span>
+                )}
+
+                {(endTime < current) && (
+                  <span className="sold-btn">Sold out</span>
+                )}
+                
+                <div className="h3 text-white mt-3">{data.totalSale} SYS</div>
+                {/* <div className="single-hr"></div> */}
+                <ProgressBar now={weiRaised/data.totalSale*100} className="progressBar" />
                 <ul className="single-report-list">
                   <li>
-                    <span>Price per token</span>{" "}
-                    <span className="h5">$0.5</span>
+                    <span>Max Allocation</span>{" "}
+                    <span className="h5">{data.maxBuy} SYS</span>
                   </li>
                   <li>
+                    <span>Price per token</span>{" "}
+                    <span className="h5">{1/data.rate} SYS</span>
+                  </li>
+                  {/* <li>
                     <span>ATH ROI</span>{" "}
                     <span className="h6 ath-rol">+324%</span>
-                  </li>
+                  </li> */}
                 </ul>
-                <div className="report-btn">
-                  <Link to="/">Research Report</Link>
-                  <p>Funded and Launched successfuly on 1 Jun 2022</p>
-                </div>
+                {(endTime > current) && (
+                  <>
+                  <div className="buy-input mt-50">
+                    <label className="text-white">Buy Amount</label>
+                    <div className="main-input">
+                        <img className="element" src={syspadImg} alt="SYSPAD"></img>
+                        <input type="text" value={buyAmnt} name="amount" className='element amount text-white' onChange={(e) => setBuyAmount(e.target.value)} maxlength="12" required />
+                        <Button
+                            className="max-amnt-btn text-white element"
+                            onClick={setMaxAmount}
+                        >
+                            MAX AMOUNT
+                        </Button>
+                        <div className="clear"></div>
+                    </div>
+                  </div>
+                  <div className="text-center text-white mt-20">Token Balance: {buyTokenBalance}</div>
+                  <div className="report-btn">
+                    <Button onClick={buyTokens} className="btn-success">Join Sale</Button>
+                    <p>Started on {startTime}</p>
+                  </div>
+                  </>
+                )}
+                {(endTime < current) && (
+                  <div className="report-btn">
+                    <Button>Learn More</Button>
+                  </div>
+                )}
               </div>
-              <Link to="/" className="sale-btn">
-                token sale
-              </Link>
+              <Button className="sale-btn">
+                Token Sale
+              </Button>
             </div>
           </div>
         </div>

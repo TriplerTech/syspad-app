@@ -21,7 +21,9 @@ const {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default [
   Yup.object().shape({
-    [tokenAddress.name]: Yup.string().required(`${tokenAddress.requiredErrorMsg}`),
+    [tokenAddress.name]: Yup.string()
+      .required(`${tokenAddress.requiredErrorMsg}`)
+      .test('len', `${tokenAddress.validTokenErrorMsg}`, val => val && val.length === 42),
     [network.name]: Yup.string()
       .nullable()
       .required(`${network.requiredErrorMsg}`),
@@ -58,9 +60,9 @@ export default [
         }
         return false;
       }),
-      [firstRelease.name]: Yup.string().required(`${firstRelease.requiredErrorMsg}`),
-      [vestingPeriod.name]: Yup.string().required(`${vestingPeriod.requiredErrorMsg}`),
-      [eachRelease.name]: Yup.string().required(`${eachRelease.requiredErrorMsg}`),
+      // [firstRelease.name]: Yup.string().required(`${firstRelease.requiredErrorMsg}`),
+      // [vestingPeriod.name]: Yup.string().required(`${vestingPeriod.requiredErrorMsg}`),
+      // [eachRelease.name]: Yup.string().required(`${eachRelease.requiredErrorMsg}`),
   }),
   Yup.object().shape({
     [projectName.name]: Yup.string().required(`${projectName.requiredErrorMsg}`),

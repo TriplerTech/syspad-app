@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
@@ -11,6 +11,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { CircularProgress } from '@material-ui/core';
 import totalPowerImg from '../../../assets/img/total-power.png';
 import stakedImg from '../../../assets/img/staked.png';
 import pancakeLogo from '../../../assets/img/pancake.png';
@@ -20,6 +21,10 @@ import coinbaseLogo from '../../../assets/img/coinbase.png';
 import syspadImg from '../../../assets/img/syspad-token.png';
 import { AiFillWarning } from "react-icons/ai";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+
+import { ethers } from 'ethers';
+import staking_abi from '../../../contracts/Staking_abi.json';
+import token_abi from '../../../contracts/Token_abi.json';
 
 import "./staking.scss";
 
@@ -62,6 +67,41 @@ const Staking = () => {
     const [value, setValue] = React.useState(0);
     const [depositAmnt, setDepositAmount] = useState("0.00");
     const [depositBalance, setDepositBalance] = useState(0);
+    const [totalBalance, setTotalBalance] = useState(0);
+    const [totalStaked, setTotalStaked] = useState("0.00");
+    const [myStaked, setMyStaked] = useState("0.00");
+    const [is_approved, setTokenApprove] = useState(false);
+    const [isLoading, setLoading] = useState(false);
+    const staking_contract = "0x8083d959537249e83b9166fafb315688f4426874";
+    const token_contract = "0x04dbe249f46418542df912184dfa79699baee80b";
+
+    let { ethereum } = window;
+    let wallet_account = localStorage.getItem("setFullAddress");
+    let contract = null;
+    let t_contract = null;
+
+    useEffect(() => {
+        if(ethereum) {
+            async function contract_interact() {
+                let provider = new ethers.providers.Web3Provider(ethereum);
+                let signer = provider.getSigner();
+                contract = new ethers.Contract(staking_contract, staking_abi, signer);
+
+                let total_staked = await contract.tokenTotalStaked();
+                setTotalStaked(total_staked.toString() / (10**18));
+
+                let my_staked = await contract.stakeAmount(wallet_account);
+                setMyStaked(Math.ceil(my_staked.toString() / (10**18)));
+
+                t_contract = new ethers.Contract(token_contract, token_abi, signer);
+
+                const balance = (await t_contract.balanceOf(wallet_account)).toString();
+                setTotalBalance(balance / (10**18));
+            } 
+    
+            contract_interact();
+        }
+    });
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -101,11 +141,22 @@ const Staking = () => {
     };
 
     const setMaxAmount = () => {
-
+        setDepositAmount(totalBalance);
     };
 
-    const depositToken = () => {
+    const depositToken = async () => {
+        setLoading(true);
+        let tx = await contract.stake(ethers.utils.parseEther(depositAmnt.toString()));
+        await tx.wait();
+        setLoading(false);
+    };
 
+    const approveToken = async () => {
+        setLoading(true);
+        let tx = await t_contract.approve(staking_contract, ethers.utils.parseEther(depositAmnt.toString()));
+        await tx.wait();
+        setTokenApprove(true);
+        setLoading(false);
     };
 
     return (
@@ -169,7 +220,7 @@ const Staking = () => {
                                 </div>
                                 <div className="col-md-10">
                                     <p className="status-header">TOTAL SYSPAD POWER</p>
-                                    <p className="status-amount text-white">0.00</p>
+                                    <p className="status-amount text-white">{totalStaked}</p>
                                 </div>
                             </div>
 
@@ -179,7 +230,7 @@ const Staking = () => {
                                 </div>
                                 <div className="col-md-10">
                                     <p className="status-header">SYSPAD STAKED ON ETHEREUM</p>
-                                    <p className="status-amount text-white">0.00</p>
+                                    <p className="status-amount text-white">{myStaked}</p>
                                 </div>
                             </div>
 
@@ -281,14 +332,34 @@ const Staking = () => {
                                         </div>
                                     </div>
 
-                                    <div className="text-center text-white mt-20">Balance: {depositBalance}</div>
+                                    <div className="text-center text-white mt-20">Balance: {totalBalance} SYSPAD</div>
                                     
-                                    <Button
-                                        className="deposit-btn text-white w-full"
-                                        onClick={depositToken}
-                                    >
-                                        Authorize Wallet
-                                    </Button>
+                                    <div className="button-wrapper">
+                                    {(is_approved) && (
+                                        <Button
+                                            className="deposit-btn text-white w-full"
+                                            onClick={depositToken}
+                                            disabled={isLoading}
+                                        >
+                                            Staking & Lock
+                                        </Button>    
+                                    )}
+                                    {!(is_approved) && (
+                                        <Button
+                                            className="deposit-btn text-white w-full"
+                                            onClick={approveToken}
+                                            disabled={isLoading}
+                                        >
+                                            Authorize Wallet
+                                        </Button>    
+                                    )}
+                                    {(isLoading) && (
+                                        <CircularProgress
+                                            size={24}
+                                            className="button-progress"
+                                        />
+                                    )}
+                                    </div>
 
                                     <div className="text-center text-muted-v2 font-14 mt-20">
                                         Your SYSPAD tokens will be locked for 14 days. After that time, you are free to withdraw at anytime.

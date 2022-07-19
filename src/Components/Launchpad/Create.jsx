@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Stepper,
   Step,
@@ -19,6 +19,11 @@ import checkoutFormModel from "./FormModel/checkoutFormModel";
 import formInitialValues from "./FormModel/formInitialValues";
 
 import useStyles from "./styles";
+
+import { ethers } from 'ethers';
+import contract_abi from '../../contracts/IDO_abi.json';
+import contract_meta from '../../contracts/IDO_metadata.json';
+import token_abi from '../../contracts/Token_abi.json';
 
 import "./index.scss";
 
@@ -43,8 +48,15 @@ function _renderStepContent(step) {
 const Create = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
+  const [tokenName, setTokenName] = useState(null);
+  const [tokenSymbol, setTokenSymbol] = useState(null);
+  const [tokenDecimals, setTokenDecimals] = useState(null);
   const currentValidationSchema = validationSchema[activeStep];
   const isLastStep = activeStep === steps.length - 1;
+  const isFirstStep = activeStep === 0;
+  const account = localStorage.getItem("setFullAddress");
+
+  let { ethereum } = window;
 
   function _sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -52,7 +64,39 @@ const Create = () => {
 
   async function _submitForm(values, actions) {
     await _sleep(1000);
-    alert(JSON.stringify(values, null, 2));
+
+    const contract_bytecode = '0x' + contract_meta.object;
+
+    if (typeof window.ethereum !== undefined) {
+      await window.ethereum.enable();
+
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+
+      const factory = new ethers.ContractFactory(contract_abi, contract_bytecode, signer);
+      const contract = await factory.deploy(values.rate, account, values.tokenAddress, "18");
+
+      console.log("IDO created: " + new Date().toLocaleString());
+      console.log("Tx hash: " + contract.deployTransaction.hash);
+
+      await contract.deployed();
+      localStorage.setItem('IDOProjectContractAddress', contract.address);
+
+      console.log("Contract address: " + contract.address);
+
+      const tokenContract = new ethers.Contract(values.tokenAddress, token_abi, signer);
+      let tx = await tokenContract.transfer(contract.address, ethers.utils.parseEther((values.hardCap * values.rate).toString()));
+      await tx.wait();
+
+      const IDOContract = new ethers.Contract(contract.address, contract_abi, signer);
+      const start = new Date(values.startDate);
+      const startTimestamp = Math.floor(start.getTime() / 1000);
+
+      const end = new Date(values.endDate);
+      const endTimestamp = Math.floor(end.getTime() / 1000);
+      let trx = await IDOContract.startIDO(startTimestamp, endTimestamp, values.maxBuy.toString(), values.hardCap.toString());
+      await trx.wait();
+    }
     actions.setSubmitting(false);
 
     setActiveStep(activeStep + 1);
@@ -116,6 +160,7 @@ const Create = () => {
                         >
                           {isLastStep ? "Submit" : "Next"}
                         </Button>
+
                         {isSubmitting && (
                           <CircularProgress
                             size={24}

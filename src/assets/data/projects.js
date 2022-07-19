@@ -13,8 +13,5 @@ const counter = [
     date: "1 Jan 2022",
     raising: "$2,030,000",
   },
- 
-
-
 ]
 export default counter

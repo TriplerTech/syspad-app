@@ -27,9 +27,9 @@ export default {
   [maxBuy.name]: "",
   [startDate.name]: "",
   [endDate.name]: "",
-  [firstRelease.name]: "",
-  [vestingPeriod.name]: "",
-  [eachRelease.name]: "",
+  // [firstRelease.name]: "",
+  // [vestingPeriod.name]: "",
+  // [eachRelease.name]: "",
   [projectName.name]: "",
   [logoUrl.name]: "",
 };

@@ -56,7 +56,7 @@ export default function LaunchpadForm(props) {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <CheckboxField
             className="text-white"
             name={useVestingRule.name}
@@ -83,7 +83,7 @@ export default function LaunchpadForm(props) {
             label={eachRelease.label}
             fullWidth
           />
-        </Grid>
+        </Grid> */}
       </Grid>
     </React.Fragment>
   );

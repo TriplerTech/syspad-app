@@ -1,11 +1,21 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  formId: "checkoutForm",
+  formId: "IDOProjectForm",
   formField: {
     tokenAddress: {
       name: "tokenAddress",
       label: "Token address*",
       requiredErrorMsg: "Token address is required",
+      validTokenErrorMsg: "Invalid Token Address"
+    },
+    tokenName: {
+      name: "tokenName"
+    },
+    tokenSymbol: {
+      name: "tokenSymbol"
+    },
+    tokenDecimals: {
+      name: "tokenDecimals"
     },
     network: {
       name: 'network',
@@ -33,35 +43,35 @@ export default {
     },
     startDate: {
       name: "startDate",
-      label: "Start date*",
+      label: "Start date (UTC)*",
       requiredErrorMsg: "Start date is required",
       invalidErrorMsg: "Start date is not valid",
     },
     endDate: {
       name: "endDate",
-      label: "End date*",
+      label: "End date (UTC)*",
       requiredErrorMsg: "End date is required",
       invalidErrorMsg: "End date is not valid",
     },
-    useVestingRule: {
-      name: "useVestingRule",
-      label: "Using Vesting Contributor?",
-    },
-    firstRelease: {
-      name: 'firstRelease',
-      label: 'First release for private sale (percent)*',
-      requiredErrorMsg: "First release for private sale cannot be blank",
-    },
-    vestingPeriod: {
-      name: 'vestingPeriod',
-      label: 'Vesting period each cycle (days)*',
-      requiredErrorMsg: "Vesting period each cycle cannot be blank",
-    },
-    eachRelease: {
-      name: 'eachRelease',
-      label: 'Private sale token release each cycle (percent)*',
-      requiredErrorMsg: "Private sale token release each cycle cannot be blank",
-    },
+    // useVestingRule: {
+    //   name: "useVestingRule",
+    //   label: "Using Vesting Contributor?",
+    // },
+    // firstRelease: {
+    //   name: 'firstRelease',
+    //   label: 'First release for private sale (percent)*',
+    //   requiredErrorMsg: "First release for private sale cannot be blank",
+    // },
+    // vestingPeriod: {
+    //   name: 'vestingPeriod',
+    //   label: 'Vesting period each cycle (days)*',
+    //   requiredErrorMsg: "Vesting period each cycle cannot be blank",
+    // },
+    // eachRelease: {
+    //   name: 'eachRelease',
+    //   label: 'Private sale token release each cycle (percent)*',
+    //   requiredErrorMsg: "Private sale token release each cycle cannot be blank",
+    // },
     projectName: {
       name: 'projectName',
       label: 'Project Name*',

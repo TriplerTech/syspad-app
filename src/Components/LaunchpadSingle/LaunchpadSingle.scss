@@ -62,6 +62,11 @@
         margin: 25px 0;
     }
 
+    .progressBar {
+        margin: 25px 0;
+        height: 10px;
+    }
+
     .single-report-item {
         padding: 30px 30px 40px;
 
@@ -131,11 +136,53 @@
         }
     }
 
+    .buy-input {
+        .main-input {
+            margin-top: 15px;
+            background-color: #040739 !important;
+            padding: 15px;
+            border-radius: 15px;
+
+            .element {
+                float: left;
+            }
+
+            .max-amnt-btn {
+                float: right !important;
+                background-color: #05355a !important;
+                font-size: 12px;
+                padding: 0px 5px;
+                margin-top: 30px;
+            }
+
+            .amount {
+                font-size: 28px;
+                background-color: transparent;
+                border: unset !important;
+                width: 50%;
+                margin-top: 20px;
+            }
+            
+            .amount:focus-visible {
+                outline: unset !important;
+            }
+        }
+
+        label {
+            font-size: 14px;
+        }
+    }
+
     .report-btn {
         margin-top: 35px;
 
-        a {
-            background: #1A217E;
+        .btn-success {
+            background: #198754 !important;
+        }
+
+        button {
+            width: 100%;
+            background: #0d6efd;
             border-radius: 100px;
             height: 50px;
             display: flex;
