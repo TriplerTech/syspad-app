@@ -83,6 +83,10 @@
             padding-top: 30px !important;
             padding-bottom: 30px !important;
         }
+
+        .portfolio-table tbody th, .portfolio-table tbody .date-cell {
+            width: 300px !important;
+        }
     }
 }
 

@@ -22,8 +22,10 @@ const LaunchpadSingle = (props) => {
   const [endTime, setEndTime] = useState(0);
   const [stakeAmount, setStakeAmount] = useState(0);
   const [weiRaised, setWeiRaised] = useState(0);
-  const staking_contract = "0x8083d959537249e83b9166fafb315688f4426874";
-  const stakingLimit = 50000;
+  // const staking_contract = "0x8083d959537249e83b9166fafb315688f4426874"; // ropsten
+  const staking_contract = "0x5098BC1f0256A22F204493112134c4895ad6A639"; // syscoin
+  // const stakingLimit = 50000;
+  const stakingLimit = 250;
 
   const data = props.data;
 

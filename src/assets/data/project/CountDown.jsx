@@ -9,7 +9,7 @@ export default function CountDown({ data }) {
   const [minutes, setMinutes] = useState("");
   const [seconds, setSeconds] = useState("");
   const [isOpen, setOpen] = useState(false);
-  const IDOContractAddress = localStorage.getItem('IDOProjectContractAddress');
+  const IDOContractAddress = "0x9E0A160597a3d67cbE56218e783BC17D37b74362";
   let current = 0;
   let duration = 0;
   
@@ -55,6 +55,7 @@ export default function CountDown({ data }) {
       duration = diff;
       if(duration > 0) {
         countdownTime(duration);
+        setOpen(false);
       } else {
         setOpen(true);
       }
@@ -68,7 +69,7 @@ export default function CountDown({ data }) {
       <span>Starts In</span>
       {!isOpen ? (
         <span>
-          {days}Days : {hours}Hours : {minutes}Minutes : {seconds}seconds
+          {hours}Hours : {minutes}Minutes : {seconds}seconds
         </span>
       ) : (
         <span>Started</span>

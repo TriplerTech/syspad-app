@@ -66,14 +66,16 @@ const Staking = () => {
     const theme = useTheme();
     const [value, setValue] = React.useState(0);
     const [depositAmnt, setDepositAmount] = useState("0.00");
-    const [depositBalance, setDepositBalance] = useState(0);
+    // const [depositBalance, setDepositBalance] = useState(0);
     const [totalBalance, setTotalBalance] = useState(0);
     const [totalStaked, setTotalStaked] = useState("0.00");
     const [myStaked, setMyStaked] = useState("0.00");
     const [is_approved, setTokenApprove] = useState(false);
     const [isLoading, setLoading] = useState(false);
-    const staking_contract = "0x8083d959537249e83b9166fafb315688f4426874";
-    const token_contract = "0x04dbe249f46418542df912184dfa79699baee80b";
+    // const staking_contract = "0x8083d959537249e83b9166fafb315688f4426874"; // for ropsten
+    const staking_contract = "0x5098BC1f0256A22F204493112134c4895ad6A639";
+    // const token_contract = "0x04dbe249f46418542df912184dfa79699baee80b"; // for ropsten
+    const token_contract = "0x569533592d84171fB6c86Ac484a8Dc732a79c814";
 
     let { ethereum } = window;
     let wallet_account = localStorage.getItem("setFullAddress");
@@ -162,55 +164,58 @@ const Staking = () => {
     return (
         <div className="staking-area">
             <div className="container">
-                <div className="alert row">
-                    <div className="col-md-1 stake-warning-icon text-center">
-                        <span className="warning-icon">
-                            <AiFillWarning/>
-                        </span>
-                    </div>
-                    <div className="col-md-7">
-                        <span className="text-white font-20">Looks like your wallet doesn't have SYSPAD staked to participate in launches.</span>
-                        <p className="sub-text text-muted-v2 font-12">Stake at least 10 SYSPAD to participate in launches and invest in the future of SYSCOIN and web3</p>
-                    </div>
-                    <div className="col-md-4 text-right externelTokenBuy">
-                        <div>
-                            <Button
-                                className="buyTokenBtn"
-                                aria-controls={open ? 'demo-customized-menu' : undefined}
-                                aria-haspopup="true"
-                                aria-expanded={open ? 'true' : undefined}
-                                variant="contained"
-                                disableElevation
-                                onClick={handleClick}
-                                endIcon={<KeyboardArrowDownIcon />}
-                            >
-                                BUY SYSPAD
-                            </Button>
-                            <Menu
-                                className="buyTokenMenu"
-                                MenuListProps={{
-                                'aria-labelledby': 'demo-customized-button',
-                                }}
-                                anchorEl={anchorEl}
-                                open={open}
-                                onClose={handleClose}
-                            >
-                                <MenuItem onClick={goPancakeSwap} className="text-white" disableRipple>
-                                    <img src={pancakeLogo} className="menuImg" alt="PancakeSwap" /> PancakeSwap
-                                </MenuItem>
-                                <MenuItem onClick={goBinance} className="text-white" disableRipple>
-                                    <img src={binanceLogo} className="menuImg" alt="Binance" /> Binance
-                                </MenuItem>
-                                <MenuItem onClick={goUniswap} className="text-white" disableRipple>
-                                    <img src={uniswapLogo} className="menuImg" alt="Uniswap" /> Uniswap
-                                </MenuItem>
-                                <MenuItem onClick={goCoinbase} className="text-white" disableRipple>
-                                    <img src={coinbaseLogo} className="menuImg" alt="Coinbase" /> Coinbase
-                                </MenuItem>
-                            </Menu>
+                {!(myStaked > 0) && (
+                    <div className="alert row">
+                        <div className="col-md-1 stake-warning-icon text-center">
+                            <span className="warning-icon">
+                                <AiFillWarning/>
+                            </span>
+                        </div>
+                        <div className="col-md-7">
+                            <span className="text-white font-20">Looks like your wallet doesn't have SYSPAD staked to participate in launches.</span>
+                            <p className="sub-text text-muted-v2 font-12">Stake at least 10 SYSPAD to participate in launches and invest in the future of SYSCOIN and web3</p>
+                        </div>
+                        <div className="col-md-4 text-right externelTokenBuy">
+                            <div>
+                                <Button
+                                    className="buyTokenBtn"
+                                    aria-controls={open ? 'demo-customized-menu' : undefined}
+                                    aria-haspopup="true"
+                                    aria-expanded={open ? 'true' : undefined}
+                                    variant="contained"
+                                    disableElevation
+                                    onClick={handleClick}
+                                    endIcon={<KeyboardArrowDownIcon />}
+                                >
+                                    BUY SYSPAD
+                                </Button>
+                                <Menu
+                                    className="buyTokenMenu"
+                                    MenuListProps={{
+                                    'aria-labelledby': 'demo-customized-button',
+                                    }}
+                                    anchorEl={anchorEl}
+                                    open={open}
+                                    onClose={handleClose}
+                                >
+                                    <MenuItem onClick={goPancakeSwap} className="text-white" disableRipple>
+                                        <img src={pancakeLogo} className="menuImg" alt="PancakeSwap" /> PancakeSwap
+                                    </MenuItem>
+                                    <MenuItem onClick={goBinance} className="text-white" disableRipple>
+                                        <img src={binanceLogo} className="menuImg" alt="Binance" /> Binance
+                                    </MenuItem>
+                                    <MenuItem onClick={goUniswap} className="text-white" disableRipple>
+                                        <img src={uniswapLogo} className="menuImg" alt="Uniswap" /> Uniswap
+                                    </MenuItem>
+                                    <MenuItem onClick={goCoinbase} className="text-white" disableRipple>
+                                        <img src={coinbaseLogo} className="menuImg" alt="Coinbase" /> Coinbase
+                                    </MenuItem>
+                                </Menu>
+                            </div>
                         </div>
                     </div>
-                </div>
+                )}
+                
                 <div className="row mt-50">
                     <div className="col-lg-7">
                         <div className="staking-status">

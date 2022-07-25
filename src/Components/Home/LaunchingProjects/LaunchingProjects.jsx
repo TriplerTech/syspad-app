@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import img4 from '../../../assets/img/projects4.png';
 import admin from '../../../assets/img/admin4.png';
+import pImg from '../../../assets/img/private_sale.jpg';
+import pIconImg from '../../../assets/img/private_icon.png';
 // import projects from "../../../assets/data/projects"; 
 
 import { ethers } from 'ethers';
@@ -14,7 +16,8 @@ import "./launchingProjects.scss";
 const LaunchingProjects = () => {
     const projectName = "SYSPAD Project";
     const desc = "SYSPAD Token for Syscoin eco-system.";
-    const IDOContractAddress = localStorage.getItem('IDOProjectContractAddress');
+    // const IDOContractAddress = localStorage.getItem('IDOProjectContractAddress');
+    const IDOContractAddress = "0x854079A4C83490cCF8D31aFbA799a7a05292Eca3";
     const [totalSale, setTotalSale] = useState(0);
     const [maxBuy, setMaxBuy] = useState(0);
     const [tokenSymbol, setTokenSymbol] = useState("");
@@ -73,7 +76,7 @@ const LaunchingProjects = () => {
                 <div className="row mt-4">
                     <div className="col-lg-4 col-md-6">
                         <div className="projects-item mt-4">
-                            <Link to='/launchpad_single' className='projects-images'>
+                            <Link to='/launchpad_single' className='projects-images' state={passData} >
                                 <img src={img4} alt="images" />
                             </Link>
                             <div className="projects-text">
@@ -90,6 +93,30 @@ const LaunchingProjects = () => {
                             <div className="projects-btn">
                                 <Link to="/launchpad_single" state={passData} >
                                     token sale
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-lg-4 col-md-6">
+                        <div className="projects-item mt-4">
+                            <Link to='/launchpad_privatesale' className='projects-images' >
+                                <img src={pImg} alt="images" />
+                            </Link>
+                            <div className="projects-text">
+                                <img src={pIconImg} alt="image" />
+                                <div className="h4 text-white pt-3 pb-2">SYSPAD Private Sale</div>
+                                <span>SYSPAD</span>
+                                <p>Private sale for SYSPAD Token</p>
+                                <ul>
+                                    <CountDown data={timeData}></CountDown>
+                                    <li><span>Fundraise Goal</span> <span>{totalSale} SYS</span></li>
+                                    <li><span>Max Allocation </span> <span>{maxBuy} SYS</span></li>
+                                </ul>
+                            </div>
+                            <div className="projects-btn">
+                                <Link to="/launchpad_privatesale" >
+                                    Private Sale
                                 </Link>
                             </div>
                         </div>

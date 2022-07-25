@@ -6,6 +6,7 @@ import Enter from './pages/Enter.jsx';
 import Home from './pages/Home.jsx'; 
 import Stake from './pages/Stake.jsx';
 import LaunchpadSingle from './pages/Launchpad_Single';
+import LaunchpadPrivateSale from './pages/Launchpad_PrivateSale';
 import CreateLaunchpad from './pages/CreateLaunchpad';
 import Kyc from './pages/Kyc';
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="home" element={<Home />} />
         <Route path="stake" element={<Stake />} />
         <Route path="launchpad_single" element={<LaunchpadSingle />} />
+        <Route path="launchpad_privatesale" element={<LaunchpadPrivateSale />} />
         <Route path="create_launchpad" element={<CreateLaunchpad />} />
         <Route path="kyc" element={<Kyc />} />
       </Routes> 

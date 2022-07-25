@@ -1,5 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { useEffect, useState, useCallback } from "react";
+import { useState } from "react";
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
 import { Link } from "react-router-dom";
@@ -7,7 +8,7 @@ import socials from "../../assets/data/socials";
 import Logo from "../../assets/img/logo-min.svg";
 import Logo2 from "../../assets/img/logo.png";
 
-import { IoMdClose, IoWalletOutline } from "react-icons/io";
+import { IoMdClose } from "react-icons/io";
 import {
     RiDashboardFill,
     RiAccountCircleFill,
